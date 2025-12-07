@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Wage Worker Hiring Platform</title>
+
+<style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
+    body{background:#f4f6f9;color:#333;}
+
+    header{
+        background:#1a73e8;
+        padding:20px;
+        text-align:center;
+        color:white;
+        font-size:28px;
+        font-weight:bold;
+        letter-spacing:1px;
+    }
+
+    .search-box{
+        width:100%;
+        text-align:center;
+        margin:30px 0;
+    }
+    .search-box input{
+        width:50%;
+        padding:12px;
+        font-size:16px;
+        border:1px solid #ccc;
+        border-radius:8px;
+        outline:none;
+    }
+
+    .container{
+        width:90%;
+        margin:auto;
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+        gap:20px;
+    }
+
+    .card{
+        background:white;
+        border-radius:12px;
+        padding:18px;
+        text-align:center;
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        transition:.3s;
+    }
+    .card:hover{
+        transform:translateY(-5px);
+        box-shadow:0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    .card img{
+        width:100%;
+        height:180px;
+        object-fit:cover;
+        border-radius:12px;
+        margin-bottom:15px;
+    }
+
+    button{
+        background:#1a73e8;
+        color:white;
+        border:none;
+        padding:10px 20px;
+        border-radius:6px;
+        cursor:pointer;
+        font-size:15px;
+        transition:.3s;
+    }
+    button:hover{background:#0d62d2;}
+
+    /* Popup form */
+    #popupForm{
+        position:fixed;
+        top:0;left:0;
+        width:100%;height:100%;
+        background:rgba(0,0,0,0.6);
+        display:none;
+        justify-content:center;
+        align-items:center;
+    }
+    .form-box{
+        background:white;
+        width:350px;
+        padding:25px;
+        border-radius:12px;
+        text-align:center;
+        animation:fadeIn .3s;
+    }
+
+    @keyframes fadeIn{
+        from{opacity:0;transform:scale(.9);}
+        to{opacity:1;transform:scale(1);}
+    }
+
+    .form-box input{
+        width:100%;
+        padding:10px;
+        margin:10px 0;
+        border:1px solid #ccc;
+        border-radius:6px;
+    }
+    .form-box button{width:100%;margin-top:10px;}
+</style>
+</head>
+<body>
+
+<header>🛠 RozMarra</header>
+
+<div class="search-box">
+    <input type="text" id="search" placeholder="Search for electrician, plumber, labour..." onkeyup="filterWorkers()">
+</div>
+
+<div class="container" id="workerList">
+
+    <div class="card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkfzjwHX_XSZ_3JUaSxRDQ4hLN3AvyDbr3bg&s">
+        <h3>Electrician</h3>
+        <p>₹200/hour</p>
+        <button onclick="openForm('Electrician')">Hire Now</button>
+    </div>
+
+    <div class="card">
+        <img src="https://www.shutterstock.com/image-photo/plumber-installing-water-equipment-meter-260nw-2397229661.jpg">
+        <h3>Plumber</h3>
+        <p>₹180/hour</p>
+        <button onclick="openForm('Plumber')">Hire Now</button>
+    </div>
+
+    <div class="card">
+        <img src="https://i.ibb.co/BjFTbMb/carpenter.jpg">
+        <h3>Carpenter</h3>
+        <p>₹250/hour</p>
+        <button onclick="openForm('Carpenter')">Hire Now</button>
+    </div>
+
+    <div class="card">
+        <img src="https://i.ibb.co/pXjz2zn/labour.jpg">
+        <h3>Labour Worker</h3>
+        <p>₹150/hour</p>
+        <button onclick="openForm('Labour Worker')">Hire Now</button>
+    </div>
+
+</div>
+
+<!-- Popup Booking Form -->
+<div id="popupForm">
+    <div class="form-box">
+        <h2 id="jobTitle"></h2>
+        <input type="text" placeholder="Your Name">
+        <input type="text" placeholder="Mobile Number">
+        <input type="text" placeholder="Address">
+        <button onclick="confirmBooking()">Confirm Booking</button>
+        <button style="background:gray;margin-top:10px" onclick="closeForm()">Cancel</button>
+    </div>
+</div>
+
+<script>
+function openForm(job){
+    document.getElementById('popupForm').style.display="flex";
+    document.getElementById('jobTitle').innerText = "Hire " + job;
+}
+function closeForm(){
+    document.getElementById('popupForm').style.display="none";
+}
+function confirmBooking(){
+    alert("Booking Confirmed! Worker will contact you soon.");
+    closeForm();
+}
+
+function filterWorkers(){
+    let input = document.getElementById("search").value.toLowerCase();
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card=>{
+        let title = card.querySelector("h3").innerText.toLowerCase();
+        card.style.display = title.includes(input) ? "block" : "none";
+    });
+}
+</script>
+
+</body>
+</html>
